@@ -1,5 +1,6 @@
 package com.daw.persistence.entities;
 
+
 import java.time.LocalDate;
 
 import com.daw.persistence.entities.enums.Estado;
