@@ -54,6 +54,9 @@ public class TareaService {
 		if(tareaEntity.getId() != idTarea) {
 			throw new TareaException("El id del body y el id del path no coinciden. ");
 		}
+		if(!this.tareaRepository.existsById(idTarea)) {
+			throw new TareaNotFoundException(String.format("La tarea con id %d no existe. ", idTarea));
+		}
 		if(tareaEntity.getFechaCreacion() != null) {
 			throw new TareaException("La fecha de creación no se puede modificar. ");
 		}
@@ -73,5 +76,28 @@ public class TareaService {
 		}
 		
 		this.tareaRepository.deleteById(idTarea);
+	}
+	
+	public TareaEntity iniciar(long idTarea) {
+		
+		TareaEntity tareaEntity = this.findById(idTarea);
+		
+		if(!tareaEntity.getEstado().equals(Estado.PENDIENTE)) {
+			throw new TareaException("No se puede iniciar una tarea en progreso o completada");
+		}
+		
+		tareaEntity.setEstado(Estado.EN_PROGRESO);
+		return this.tareaRepository.save(tareaEntity);
+	}
+	public TareaEntity completar(long idTarea) {
+		
+		TareaEntity tareaEntity = this.findById(idTarea);
+		
+		if(!tareaEntity.getEstado().equals(Estado.EN_PROGRESO)) {
+			throw new TareaException("No se puede iniciar una tarea en progreso o completada");
+		}
+		
+		tareaEntity.setEstado(Estado.COMPLETADA);
+		return this.tareaRepository.save(tareaEntity);
 	}
 }

@@ -3,6 +3,7 @@ package com.daw.web.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +72,32 @@ public class TareaController {
 		}
 		catch(TareaNotFoundException ex) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+		}
+	}
+	
+	@GetMapping("/{idTarea}/iniciar")
+	public ResponseEntity<?> iniciar(@PathVariable long idTarea){
+		try {
+			return ResponseEntity.ok(this.tareaService.iniciar(idTarea));
+			//return ResponseEntity.status(HttpStatus.OK).body(this.tareaService.findById(idTarea));
+		}
+		catch(TareaNotFoundException ae) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ae.getMessage());
+		}catch(TareaException ae) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ae.getMessage());
+		}
+	}
+	
+	@GetMapping("/{idTarea}/completar")
+	public ResponseEntity<?> completar(@PathVariable long idTarea){
+		try {
+			return ResponseEntity.ok(this.tareaService.completar(idTarea));
+			//return ResponseEntity.status(HttpStatus.OK).body(this.tareaService.findById(idTarea));
+		}
+		catch(TareaNotFoundException ae) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ae.getMessage());
+		}catch(TareaException ae) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ae.getMessage());
 		}
 	}
 }
