@@ -100,4 +100,16 @@ public class TareaService {
 		tareaEntity.setEstado(Estado.COMPLETADA);
 		return this.tareaRepository.save(tareaEntity);
 	}
+	
+	public List<TareaEntity> findByPendientes(){
+		return this.tareaRepository.findByEstado(Estado.PENDIENTE);
+	}
+	
+	public List<TareaEntity> findByEnProgreso(){
+		return this.tareaRepository.findByEstado(Estado.EN_PROGRESO);
+	}
+	
+	public List<TareaEntity> findByCompletadas(){
+		return this.tareaRepository.findByEstado(Estado.COMPLETADA);
+	}
 }

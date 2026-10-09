@@ -3,7 +3,6 @@ package com.daw.web.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.TareaEntity;
+import com.daw.persistence.entities.enums.Estado;
 import com.daw.services.TareaService;
 import com.daw.services.exceptions.TareaException;
 import com.daw.services.exceptions.TareaNotFoundException;
@@ -98,6 +98,33 @@ public class TareaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ae.getMessage());
 		}catch(TareaException ae) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ae.getMessage());
+		}
+	}
+	
+	@GetMapping("/pendientes")
+	public ResponseEntity<?> findByPendientes(){
+		try {
+			return ResponseEntity.ok(this.tareaService.findByPendientes());
+		}catch(TareaException ex) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+		}
+	}
+	
+	@GetMapping("/en_progreso")
+	public ResponseEntity<?> findByEnProgreso(){
+		try {
+			return ResponseEntity.ok(this.tareaService.findByEnProgreso());
+		}catch(TareaException ex) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+		}
+	}
+	
+	@GetMapping("/completadas")
+	public ResponseEntity<?> findByCompletadas(){
+		try {
+			return ResponseEntity.ok(this.tareaService.findByCompletadas());
+		}catch(TareaException ex) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}
 	}
 }
