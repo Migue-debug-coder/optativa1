@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.TareaEntity;
-import com.daw.persistence.entities.enums.Estado;
 import com.daw.services.TareaService;
 import com.daw.services.exceptions.TareaException;
 import com.daw.services.exceptions.TareaNotFoundException;
@@ -103,28 +103,31 @@ public class TareaController {
 	
 	@GetMapping("/pendientes")
 	public ResponseEntity<?> findByPendientes(){
-		try {
-			return ResponseEntity.ok(this.tareaService.findByPendientes());
-		}catch(TareaException ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-		}
+		return ResponseEntity.ok(this.tareaService.findByPendientes());
 	}
 	
 	@GetMapping("/en_progreso")
 	public ResponseEntity<?> findByEnProgreso(){
-		try {
-			return ResponseEntity.ok(this.tareaService.findByEnProgreso());
-		}catch(TareaException ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-		}
+		return ResponseEntity.ok(this.tareaService.findByEnProgreso());
 	}
 	
 	@GetMapping("/completadas")
 	public ResponseEntity<?> findByCompletadas(){
-		try {
-			return ResponseEntity.ok(this.tareaService.findByCompletadas());
-		}catch(TareaException ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-		}
+		return ResponseEntity.ok(this.tareaService.findByCompletadas());
+	}
+	
+	@GetMapping("/vencidas")
+	public ResponseEntity<List<TareaEntity>> vencidas(){
+		return ResponseEntity.ok(this.tareaService.findVencidas());
+	}
+	
+	@GetMapping("/no_vencidas")
+	public ResponseEntity<List<TareaEntity>> noVencidas(){
+		return ResponseEntity.ok(this.tareaService.findNoVencidas());
+	}
+	
+	@GetMapping("/titulo")
+	public ResponseEntity<List<TareaEntity>> porTitulo(@RequestParam String titulo) {
+		return ResponseEntity.ok(this.tareaService.findByTitulo(titulo));
 	}
 }

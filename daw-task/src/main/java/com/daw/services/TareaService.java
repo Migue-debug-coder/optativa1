@@ -112,4 +112,14 @@ public class TareaService {
 	public List<TareaEntity> findByCompletadas(){
 		return this.tareaRepository.findByEstado(Estado.COMPLETADA);
 	}
+	
+	public List<TareaEntity> findVencidas(){
+		return this.tareaRepository.findByFechaVencimientoBefore(LocalDate.now());
+	}
+	public List<TareaEntity> findNoVencidas(){
+		return this.tareaRepository.findByFechaVencimientoAfter(LocalDate.now());
+	}
+	public List<TareaEntity> findByTitulo(String titulo){
+		return this.tareaRepository.findByTituloContainingIgnoreCase(titulo);
+	}
 }
