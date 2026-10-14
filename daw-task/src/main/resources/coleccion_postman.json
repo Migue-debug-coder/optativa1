@@ -1,0 +1,282 @@
+{
+  "info": {
+    "_postman_id": "eb539379-71c7-40ea-a7e9-c708576b0f18",
+    "name": "daw-task-2daw",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52616779",
+    "_collection_link": "https://go.postman.co/collection/52616779-eb539379-71c7-40ea-a7e9-c708576b0f18?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Listar_Tareas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear_Tarea",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"descripcion\": \"Prueba de deifinicion\",\r\n    \"fechaVencimiento\": \"2027-03-14\",\r\n    \"titulo\": \"Modelado de entidades\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8081/tareas",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tareas_Pendientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/pendientes",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "pendientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tareas_en_progreso",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/en_progreso",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "en_progreso"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tareas_completadas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/completadas",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "completadas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/11",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "11"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar Tarea",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": \"11\",\r\n  \"titulo\": \"Revisar código de Spring Boot\",\r\n  \"descripcion\": \"Verificar los endpoints de tareas pendientes y corregir la lógica del servicio.\",\r\n  \"fechaVencimiento\": \"2026-11-20\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8081/tareas/11",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "11"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Borrar tarea",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/11",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "11"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Iniciar Tarea",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/5/iniciar",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "5",
+            "iniciar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Completar Tarea",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/5/completar",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "5",
+            "completar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tareas vencidas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/vencidas",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "vencidas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tareas No vencidas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/no_vencidas",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "no_vencidas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Busqueda por Titulo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/tareas/titulo?titulo=API",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tareas",
+            "titulo"
+          ],
+          "query": [
+            {
+              "key": "titulo",
+              "value": "API"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
