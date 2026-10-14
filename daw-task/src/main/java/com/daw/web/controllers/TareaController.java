@@ -79,7 +79,6 @@ public class TareaController {
 	public ResponseEntity<?> iniciar(@PathVariable long idTarea){
 		try {
 			return ResponseEntity.ok(this.tareaService.iniciar(idTarea));
-			//return ResponseEntity.status(HttpStatus.OK).body(this.tareaService.findById(idTarea));
 		}
 		catch(TareaNotFoundException ae) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ae.getMessage());
