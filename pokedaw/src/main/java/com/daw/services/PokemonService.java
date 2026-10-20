@@ -61,14 +61,25 @@ public class PokemonService {
 		if(pokemon.getFechaCaptura() != null) {
 			throw new PokemonException(String.format("La fecha de captura del pokemon no se puede modificar"));
 		}
-		if(pokemon.getTipo1() == pokemon.getTipo2()) {
-			throw new PokemonException(String.format("Un pokemon no puede tener 2 tipos idénticos"));
+		if(pokemon.getTipo1() == null || pokemon.getTipo1() == Tipo.NINGUNO) {
+			throw new PokemonException(String.format("El tipo 1 no puede ser nulo"));
+		}
+		if((pokemon.getTipo1().equals(pokemon.getTipo2()) || pokemon.getTipo2() == null)) {
+			pokemon.setTipo2(Tipo.NINGUNO);
 		}
 		if(pokemon.getCapturado() == null) {
 			pokemon.setCapturado(Capturado.POKEBALL);
 		}
 		
-		return this.pokemonRepository.save(pokemon);
+		Pokemon pokemon2 = this.findById(idPokemon);
+		
+		pokemon2.setNumeroPokedex(pokemon.getNumeroPokedex());
+		pokemon2.setTitulo(pokemon.getTitulo());
+		pokemon2.setTipo1(pokemon.getTipo1());
+		pokemon2.setTipo2(pokemon.getTipo2());
+		pokemon2.setCapturado(pokemon.getCapturado());
+
+		return this.pokemonRepository.save(pokemon2);
 	}
 	
 	public void deleteById(long idPokemon) {
@@ -77,5 +88,17 @@ public class PokemonService {
 		}
 		
 		this.pokemonRepository.deleteById(idPokemon);
+	}
+	
+	public List<Pokemon> findByNumeroPokedex(int numeroPokedex){
+		return this.pokemonRepository.findByNumeroPokedex(numeroPokedex);
+	}
+	
+	public List<Pokemon> findByFechaCapturaBetween(LocalDate fechaInicio, LocalDate fechaFin) {
+	    return this.pokemonRepository.findByFechaCapturaBetween(fechaInicio, fechaFin);
+	}
+	
+	public List<Pokemon> findByTipo(Tipo tipo) {
+	    return this.pokemonRepository.findByTipo1OrTipo2(tipo, tipo);
 	}
 }
