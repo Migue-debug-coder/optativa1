@@ -1,11 +1,13 @@
 package com.daw.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Pokemon;
 import com.daw.persistence.entities.enums.Capturado;
+import com.daw.persistence.entities.enums.Tipo;
 import com.daw.persistence.repositories.PokemonRepository;
 import com.daw.services.exceptions.PokemonException;
 import com.daw.services.exceptions.PokemonNotFoundException;
@@ -34,13 +36,18 @@ public class PokemonService {
 		if(pokemon.getFechaCaptura() != null) {
 			throw new PokemonException(String.format("La fecha de captura del pokemon no se puede modificar"));
 		}
-		if(pokemon.getTipo1() == pokemon.getTipo2()) {
-			throw new PokemonException(String.format("Un pokemon no puede tener 2 tipos idénticos"));
+		if(pokemon.getTipo1() == null || pokemon.getTipo1() == Tipo.NINGUNO) {
+			throw new PokemonException(String.format("El tipo 1 no puede ser nulo"));
+		}
+		if((pokemon.getTipo1().equals(pokemon.getTipo2()) || pokemon.getTipo2() == null)) {
+			pokemon.setTipo2(Tipo.NINGUNO);
 		}
 		if(pokemon.getCapturado() == null) {
 			pokemon.setCapturado(Capturado.POKEBALL);
 		}
 		
+		pokemon.setId(0L);
+		pokemon.setFechaCaptura(LocalDate.now());
 		return this.pokemonRepository.save(pokemon);
 	}
 	
