@@ -55,12 +55,12 @@ export const UIService = {
         this.elements.tbody.innerHTML = items.map(pokemon => `
             <tr>
                 <td><strong>#${pokemon.id}</strong></td>
+                <td>${pokemon.numeroPokedex}</td>
                 <td>${this.escapeHTML(pokemon.titulo)}</td>
-                <td>${this.escapeHTML(pokemon.numeroPokedex)}</td>
-				<td>${this.escapeHTML(pokemon.tipo1)}</td>
-				<td>${this.escapeHTML(pokemon.tipo2)}</td>
-				<td>${this.escapeHTML(pokemon.fechaCaptura)}</td>
-				<td>${this.escapeHTML(pokemon.capturado)}</td>
+                <td>${this.escapeHTML(pokemon.tipo1)}</td>
+                <td>${this.escapeHTML(pokemon.tipo2)}</td>
+                <td>${this.escapeHTML(pokemon.fechaCaptura)}</td>
+                <td>${this.escapeHTML(pokemon.capturado)}</td>
                 <td style="text-align: center;">
                     <button class="btn-action btn-ver"    data-id="${pokemon.id}" title="Ver Detalle">👁️ Ver</button>
                     <button class="btn-action btn-editar" data-id="${pokemon.id}" title="Editar">✏️ Editar</button>
@@ -80,7 +80,7 @@ export const UIService = {
      *
      * @param {Object|null} pokemon - null = Crear, objeto = Editar
      */
-    pokemon(item = null) {
+    openModalForm(pokemon = null) {
         this.elements.formEntidad.reset();
 
         if (pokemon) {
@@ -92,11 +92,13 @@ export const UIService = {
             document.getElementById('pokemon-numeroPokedex').value  = pokemon.numeroPokedex || '';
             document.getElementById('pokemon-capturado').value = pokemon.capturado || '';
 			document.getElementById('pokemon-tipo1').value = pokemon.tipo1 || '';
-			document.getElementById('pokemon-tipo2').value = pokemon.tipo2 || '';
+			document.getElementById('pokemon-tipo2').value = pokemon.tipo2 || 'NINGUNO';
         } else {
             // MODO CREACIÓN: limpiar el campo oculto de ID
             this.elements.modalFormTitulo.textContent = 'Nuevo Registro';
             document.getElementById('campo-id').value = '';
+			document.getElementById('pokemon-tipo2').value = 'NINGUNO';
+			document.getElementById('pokemon-capturado').value = 'POKEBALL';
         }
 
         this.elements.modalForm.classList.remove('hidden');
@@ -121,31 +123,31 @@ export const UIService = {
                 <div class="detail-value"><strong>#${pokemon.id}</strong></div>
             </div>
             <div class="detail-item">
-                <div class="detail-label">Campo 1</div>
-                <div class="detail-value">${this.escapeHTML(pokemon.titulo)}</div>
+                <div class="detail-label">Número de Pokédex</div>
+                <div class="detail-value">${pokemon.numeroPokedex || 'Sin datos.'}</div>
             </div>
             <div class="detail-item">
-                <div class="detail-label">Campo 2 (texto largo)</div>
-                <div class="detail-value">${this.escapeHTML(pokemon.numeroPokedex || 'Sin datos.')}
-			</div>
-			<div class="detail-item">
-			    <div class="detail-label">Campo 2 (texto largo)</div>
-			    <div class="detail-value">${this.escapeHTML(pokemon.tipo1 || 'Sin datos.')}
-			</div>
-			<div class="detail-item">
-			    <div class="detail-label">Campo 2 (texto largo)</div>
-			    <div class="detail-value">${this.escapeHTML(pokemon.tipo2 || 'Sin datos.')}
-			</div>
-			<div class="detail-item">
-			    <div class="detail-label">Campo 2 (texto largo)</div>
-			    <div class="detail-value">${this.escapeHTML(pokemon.fechaCaptura || 'Sin datos.')}
-			</div>
-			<div class="detail-item">
-			    <div class="detail-label">Campo 2 (texto largo)</div>
-			    <div class="detail-value">${this.escapeHTML(pokemon.capturado || 'Sin datos.')}
-			</div>
-		`;
-	 	this.elements.modalDetalle.classList.remove('hidden');
+                <div class="detail-label">Título</div>
+                <div class="detail-value">${this.escapeHTML(pokemon.titulo) || 'Sin datos.'}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Tipo 1</div>
+                <div class="detail-value">${this.escapeHTML(pokemon.tipo1) || 'Sin datos.'}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Tipo 2</div>
+                <div class="detail-value">${this.escapeHTML(pokemon.tipo2) || 'Sin datos.'}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Fecha de captura</div>
+                <div class="detail-value">${this.escapeHTML(pokemon.fechaCaptura) || 'Sin datos.'}</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">Capturado</div>
+                <div class="detail-value">${this.escapeHTML(pokemon.capturado) || 'Sin datos.'}</div>
+            </div>
+        `;
+        this.elements.modalDetalle.classList.remove('hidden');
     },
 
     closeModalDetalle() {

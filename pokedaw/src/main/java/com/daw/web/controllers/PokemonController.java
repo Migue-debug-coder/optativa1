@@ -58,7 +58,10 @@ public class PokemonController {
 	public ResponseEntity<?> update(@PathVariable long idPokemon, @RequestBody Pokemon pokemon){
 		try {
 			return ResponseEntity.ok(this.pokemonService.update(idPokemon, pokemon));
-		}catch(PokemonException pk) {
+		}catch(PokemonNotFoundException pk) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pk.getMessage());
+		}
+		catch(PokemonException pk) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pk.getMessage());
 		}
 	}

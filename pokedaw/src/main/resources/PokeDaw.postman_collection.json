@@ -1,0 +1,289 @@
+{
+  "info": {
+    "_postman_id": "915495a1-3256-4f2a-bb9d-566b5219c29e",
+    "name": "PokeDaw",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52616779",
+    "_collection_link": "https://go.postman.co/collection/52616779-915495a1-3256-4f2a-bb9d-566b5219c29e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Crear Pokemon",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numeroPokedex\": 172,\n  \"titulo\": \"Pichu\",\n  \"tipo1\": \"ELECTRICO\",\n  \"tipo2\": \"NINGUNO\",\n  \"capturado\": \"POKEBALL\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8081/pokemons",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Pokemon",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));\npm.test(\"La lista incluye el pokemon creado\", () => pm.expect(pm.response.json().map(p => p.id)).to.include(Number(pm.collectionVariables.get(\"pokemonId\"))));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/pokemons",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));\npm.test(\"Es Pikachu\", () => pm.expect(pm.response.json().titulo).to.eql(\"Pikachu\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/pokemons/153",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons",
+            "153"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Modificar Pokemon",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));\npm.test(\"titulo actualizado\", () => pm.expect(pm.response.json().titulo).to.eql(\"Raichu\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 25,\n  \"numeroPokedex\": 25,\n  \"titulo\": \"Raichu\",\n  \"tipo1\": \"ELECTRICO\",\n  \"tipo2\": \"NINGUNO\",\n  \"capturado\": \"SUPERBALL\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8081/pokemons/25",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons",
+            "25"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filtrar por Numero de Pokedex",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/pokemons/pokedex?numeroPokedex=25",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons",
+            "pokedex"
+          ],
+          "query": [
+            {
+              "key": "numeroPokedex",
+              "value": "25"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pokemon capturados en un rango de fechas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/pokemons/fecha?fechaInicio=2026-01-01&fechaFin=2026-08-10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons",
+            "fecha"
+          ],
+          "query": [
+            {
+              "key": "fechaInicio",
+              "value": "2026-01-01"
+            },
+            {
+              "key": "fechaFin",
+              "value": "2026-08-10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filtrar Pokemon por Tipo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/pokemons/tipo?tipo=ELECTRICO",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons",
+            "tipo"
+          ],
+          "query": [
+            {
+              "key": "tipo",
+              "value": "ELECTRICO"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Borrar Pokemon",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:8081/pokemons/154",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "pokemons",
+            "154"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

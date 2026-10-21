@@ -51,7 +51,7 @@ function setupEventListeners() {
 
     // 1. Abrir modal para CREAR
     document.getElementById('btn-nuevo').addEventListener('click', () => {
-        UIService.pokemon(null);
+        UIService.openModalForm(null);
     });
 
     // 2. Cerrar modal formulario
@@ -79,9 +79,9 @@ function setupEventListeners() {
             return;
         }
         // [ALUMNO] Ajusta los campos por los que quieres filtrar
-        const filtrados = datosCache.filter(item =>
-            (item.campo1 && item.campo1.toLowerCase().includes(query))
-        );
+        const filtrados = datosCache.filter(item => {
+			(item.campo1 && item.campo1.toLowerCase().includes(query))
+		});
         UIService.renderTabla(filtrados);
     });
 
@@ -120,9 +120,11 @@ async function handleGuardar() {
     const id = document.getElementById('campo-id').value;
 
     // [ALUMNO] Leer los valores de los inputs del modal
-    // const campo1 = document.getElementById('campo-texto').value.trim();
-    // const campo2 = document.getElementById('campo-textarea').value.trim();
-    // const fecha  = document.getElementById('campo-fecha').value;
+    const titulo = document.getElementById('pokemon-titulo').value.trim();
+    const numeroPokedex = parseInt(document.getElementById('pokemon-numeroPokedex').value,10);
+    const capturado  = document.getElementById('pokemon-capturado').value;
+	const tipo1  = document.getElementById('pokemon-tipo1').value;
+	const tipo2  = document.getElementById('pokemon-tipo2').value;
 
     try {
         if (id) {
@@ -132,9 +134,11 @@ async function handleGuardar() {
             const payloadUpdate = {
                 id: parseInt(id),
                 // [ALUMNO] añadir campos editables:
-                // campo1: campo1,
-                // campo2: campo2,
-                // campofecha: fecha
+                titulo: titulo,
+                numeroPokedex: numeroPokedex,
+                capturado: capturado,
+				tipo1:tipo1,
+				tipo2:tipo2
             };
             await ApiService.update(id, payloadUpdate);
             UIService.showToast(`Registro #${id} actualizado correctamente.`, 'success');
@@ -143,9 +147,11 @@ async function handleGuardar() {
             // ⚠️ No incluir campos que el service asigne automáticamente (estado, fechaCreacion...)
             const payloadCreate = {
                 // [ALUMNO] añadir campos:
-                // campo1: campo1,
-                // campo2: campo2,
-                // campofecha: fecha
+                titulo: titulo,
+                numeroPokedex: numeroPokedex,
+				capturado: capturado,
+				tipo1:tipo1,
+				tipo2:tipo2
             };
             const nuevo = await ApiService.create(payloadCreate);
             UIService.showToast(`Registro #${nuevo.id} creado correctamente.`, 'success');
@@ -179,7 +185,7 @@ async function handleVerDetalle(id) {
 async function handleEditar(id) {
     try {
         const item = await ApiService.getById(id);
-        UIService.pokemon(item);
+        UIService.openModalForm(item);
     } catch (error) {
         console.error('Error al cargar datos para editar:', error);
         UIService.showToast(error.message, 'error');
