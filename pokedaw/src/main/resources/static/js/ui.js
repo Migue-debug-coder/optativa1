@@ -39,7 +39,7 @@ export const UIService = {
      * Regla: una celda <td> por campo. Sin HTML anidado en la celda.
      * Los campos de texto largo (descripcion, etc.) NO se muestran en tabla.
      */
-    renderTabla(pokemon) {
+    renderTabla(items) {
         if (this.elements.loadingState) this.elements.loadingState.classList.add('hidden');
 
         if (!items || items.length === 0) {
@@ -52,15 +52,19 @@ export const UIService = {
         if (this.elements.emptyState) this.elements.emptyState.classList.add('hidden');
         if (this.elements.statTotal)  this.elements.statTotal.textContent = items.length;
 
-        this.elements.tbody.innerHTML = items.map(item => `
+        this.elements.tbody.innerHTML = items.map(pokemon => `
             <tr>
-                <td><strong>#${item.id}</strong></td>
-                <td>${this.escapeHTML(item.campo1)}</td>
-                <td>${this.escapeHTML(item.campo2)}</td>
+                <td><strong>#${pokemon.id}</strong></td>
+                <td>${this.escapeHTML(pokemon.titulo)}</td>
+                <td>${this.escapeHTML(pokemon.numeroPokedex)}</td>
+				<td>${this.escapeHTML(pokemon.tipo1)}</td>
+				<td>${this.escapeHTML(pokemon.tipo2)}</td>
+				<td>${this.escapeHTML(pokemon.fechaCaptura)}</td>
+				<td>${this.escapeHTML(pokemon.capturado)}</td>
                 <td style="text-align: center;">
-                    <button class="btn-action btn-ver"    data-id="${item.id}" title="Ver Detalle">👁️ Ver</button>
-                    <button class="btn-action btn-editar" data-id="${item.id}" title="Editar">✏️ Editar</button>
-                    <button class="btn-action btn-action-danger btn-borrar" data-id="${item.id}" title="Eliminar">🗑️ Borrar</button>
+                    <button class="btn-action btn-ver"    data-id="${pokemon.id}" title="Ver Detalle">👁️ Ver</button>
+                    <button class="btn-action btn-editar" data-id="${pokemon.id}" title="Editar">✏️ Editar</button>
+                    <button class="btn-action btn-action-danger btn-borrar" data-id="${pokemon.id}" title="Eliminar">🗑️ Borrar</button>
                 </td>
             </tr>
         `).join('');
