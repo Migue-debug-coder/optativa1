@@ -89,7 +89,12 @@ public class PokemonController {
 	}
 	
 	@GetMapping("/tipo")
-	public ResponseEntity<List<Pokemon>> findByTipo(@RequestParam Tipo tipo) {
-	    return ResponseEntity.ok(this.pokemonService.findByTipo(tipo));
+	public ResponseEntity<?> findByTipo(@RequestParam String tipo) {
+	    try {
+	    	return ResponseEntity.ok(this.pokemonService.findByTipo(tipo));
+	    }catch(IllegalArgumentException ex) {
+	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El tipo indicado no existe");
+	    }
+		
 	}
 }

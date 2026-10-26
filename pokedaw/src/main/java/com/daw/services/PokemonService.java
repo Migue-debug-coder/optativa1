@@ -98,7 +98,8 @@ public class PokemonService {
 	    return this.pokemonRepository.findByFechaCapturaBetween(fechaInicio, fechaFin);
 	}
 	
-	public List<Pokemon> findByTipo(Tipo tipo) {
-	    return this.pokemonRepository.findByTipo1OrTipo2(tipo, tipo);
+	public List<Pokemon> findByTipo(String tipo) {
+		Tipo tipoEnum = Tipo.valueOf(tipo);
+	    return this.pokemonRepository.findByTipo1OrTipo2(tipoEnum);
 	}
 }
