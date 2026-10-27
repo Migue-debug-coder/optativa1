@@ -15,6 +15,6 @@ public interface PokemonRepository extends JpaRepository<Pokemon, Long>{
 	
 	List<Pokemon> findByFechaCapturaBetween(LocalDate fechaInicio, LocalDate fechaFinal);
 	
-	List<Pokemon>findByTipo1OrTipo2(Tipo tipo1);
+	List<Pokemon>findByTipo1OrTipo2(Tipo tipo1, Tipo tipo2);
 	
 }

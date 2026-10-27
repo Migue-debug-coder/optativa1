@@ -100,6 +100,6 @@ public class PokemonService {
 	
 	public List<Pokemon> findByTipo(String tipo) {
 		Tipo tipoEnum = Tipo.valueOf(tipo);
-	    return this.pokemonRepository.findByTipo1OrTipo2(tipoEnum);
+	    return this.pokemonRepository.findByTipo1OrTipo2(tipoEnum,tipoEnum);
 	}
 }
