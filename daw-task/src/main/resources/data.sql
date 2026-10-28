@@ -1,11 +1,11 @@
-INSERT INTO tarea (titulo, descripcion, fecha_creacion, fecha_vencimiento, estado) VALUES
-('Diseño de base de datos', 'Crear el esquema inicial para las tablas principales', '2026-09-01', '2026-09-05', 'COMPLETADA'),
-('Configurar Spring Boot', 'Inicializar proyecto con dependencias de JPA y Lombok', '2026-09-02', '2026-09-04', 'COMPLETADA'),
-('Desarrollo de API Auth', 'Implementar autenticación y autorización mediante JWT', '2026-09-05', '2026-09-15', 'EN_PROGRESO'),
-('Integración de pagos', 'Conectar la pasarela de pago para procesamiento de tarjeta', '2026-09-10', '2026-09-30', 'EN_PROGRESO'),
-('Pruebas unitarias en Repositorio', 'Escribir tests con JUnit 5 para TareaRepository', '2026-09-12', '2026-09-18', 'EN_PROGRESO'),
-('Diseño de Frontend en React', 'Maquetar las vistas de listado y detalle de tareas', '2026-09-15', '2026-10-01', 'PENDIENTE'),
-('Documentación de la API', 'Generar especificación OpenAPI / Swagger de los endpoints', '2026-09-20', '2026-09-25', 'PENDIENTE'),
-('Despliegue en Servidor de Staging', 'Configurar contenedor Docker para pruebas internas', '2026-09-22', '2026-10-05', 'PENDIENTE'),
-('Auditoría de Seguridad', 'Revisar vulnerabilidades en dependencias Maven', '2026-09-25', '2026-10-10', 'PENDIENTE'),
-('Optimización de Consultas SQL', 'Añadir índices a las columnas de mayor filtrado', '2026-09-28', '2026-10-15', 'PENDIENTE');
+INSERT INTO tarea (titulo,fecha_creacion, estado,horas_estimadas,prioridad) VALUES
+('Diseño de base de datos', '2026-09-01', 'COMPLETADA',5,'MEDIA'),
+('Configurar Spring Boot', '2026-09-02','COMPLETADA',12,'ALTA'),
+('Desarrollo de API Auth', '2026-09-05','EN_PROGRESO',20,'MEDIA'),
+('Integración de pagos','2026-09-10','EN_PROGRESO',30,'BAJA'),
+('Pruebas unitarias en Repositorio','2026-09-12','EN_PROGRESO',10,'ALTA'),
+('Diseño de Frontend en React', '2026-09-15','PENDIENTE',40,'MEDIA'),
+('Documentación de la API', '2026-09-20','PENDIENTE',3,'BAJA'),
+('Despliegue en Servidor de Staging', '2026-09-22','PENDIENTE',1,'ALTA'),
+('Auditoría de Seguridad', '2026-09-25','PENDIENTE',8,'MEDIA'),
+('Optimización de Consultas SQL','2026-09-28','PENDIENTE',2,'BAJA');

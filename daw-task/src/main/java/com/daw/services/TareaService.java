@@ -38,8 +38,8 @@ public class TareaService {
 		if(tareaEntity.getEstado() != null) {
 			throw new TareaException("El estado no se puede modificar. ");
 		}
-		if(tareaEntity.getFechaVencimiento().isBefore(LocalDate.now())) {
-			throw new TareaException("La fecha de vencimiento debe ser posterior a la fecha de creación.");
+		if(tareaEntity.getHorasEstimadas() <= 0) {
+			throw new TareaException("La horas estimadas deben ser mayores que 0");
 		}
 		
 		
@@ -63,15 +63,12 @@ public class TareaService {
 		if(tareaEntity.getEstado() != null) {
 			throw new TareaException("El estado no se puede modificar. ");
 		}
-		if(tareaEntity.getFechaVencimiento().isBefore(LocalDate.now())) {
-			throw new TareaException("La fecha de vencimiento debe ser posterior a la fecha de creación.");
-		}
 		
 		TareaEntity tareaBD = this.findById(idTarea);
 		
 		tareaBD.setTitulo(tareaEntity.getTitulo());
-		tareaBD.setDescripcion(tareaEntity.getDescripcion());
-		tareaBD.setFechaVencimiento(tareaEntity.getFechaVencimiento());
+		tareaBD.setPrioridad(tareaEntity.getPrioridad());
+		tareaBD.setHorasEstimadas(tareaEntity.getHorasEstimadas());
 		
 		return this.tareaRepository.save(tareaBD);
 	}
@@ -89,18 +86,30 @@ public class TareaService {
 		TareaEntity tareaEntity = this.findById(idTarea);
 		
 		if(!tareaEntity.getEstado().equals(Estado.PENDIENTE)) {
-			throw new TareaException("No se puede iniciar una tarea en progreso o completada");
+			throw new TareaException("No se puede iniciar una tarea que no esté pendiente");
 		}
 		
 		tareaEntity.setEstado(Estado.EN_PROGRESO);
 		return this.tareaRepository.save(tareaEntity);
 	}
+	
+	public TareaEntity revisar(long idTarea) {
+		TareaEntity tareaEntity = this.findById(idTarea);
+		
+		if(!tareaEntity.getEstado().equals(Estado.EN_PROGRESO)) {
+			throw new TareaException("No se puede revisar una tarea que no esté en progreso");
+		}
+		
+		tareaEntity.setEstado(Estado.EN_REVISION);
+		return this.tareaRepository.save(tareaEntity);
+	}
+	
 	public TareaEntity completar(long idTarea) {
 		
 		TareaEntity tareaEntity = this.findById(idTarea);
 		
-		if(!tareaEntity.getEstado().equals(Estado.EN_PROGRESO)) {
-			throw new TareaException("No se puede iniciar una tarea en progreso o completada");
+		if(!tareaEntity.getEstado().equals(Estado.EN_REVISION)) {
+			throw new TareaException("No se puede completar una tarea que no esté en revisión");
 		}
 		
 		tareaEntity.setEstado(Estado.COMPLETADA);
@@ -115,16 +124,14 @@ public class TareaService {
 		return this.tareaRepository.findByEstado(Estado.EN_PROGRESO);
 	}
 	
+	public List<TareaEntity> findByEnRevision(){
+		return this.tareaRepository.findByEstado(Estado.EN_REVISION);
+	}
+	
 	public List<TareaEntity> findByCompletadas(){
 		return this.tareaRepository.findByEstado(Estado.COMPLETADA);
 	}
 	
-	public List<TareaEntity> findVencidas(){
-		return this.tareaRepository.findByFechaVencimientoBefore(LocalDate.now());
-	}
-	public List<TareaEntity> findNoVencidas(){
-		return this.tareaRepository.findByFechaVencimientoAfter(LocalDate.now());
-	}
 	public List<TareaEntity> findByTitulo(String titulo){
 		return this.tareaRepository.findByTituloContainingIgnoreCase(titulo);
 	}

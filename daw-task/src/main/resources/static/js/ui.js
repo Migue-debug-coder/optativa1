@@ -57,8 +57,9 @@ export const UIService = {
                 <td><strong>#${tarea.id}</strong></td>
                 <td>${this.escapeHTML(tarea.titulo)}</td>
                 <td>${tarea.fechaCreacion}</td>
-				<td>${tarea.fechaVencimiento}</td>
 				<td>${tarea.estado}</td>
+				<td>${tarea.horasEstimadas}</td>
+				<td>${tarea.prioridad}</td>
                 <td style="text-align: center;">
                     <button class="btn-action btn-ver"    data-id="${tarea.id}" title="Ver Detalle">👁️ Ver</button>
                     <button class="btn-action btn-editar" data-id="${tarea.id}" title="Editar">✏️ Editar</button>
@@ -87,8 +88,8 @@ export const UIService = {
             document.getElementById('tarea-id').value     = tarea.id;
             // [ALUMNO] Rellenar aquí el resto de campos:
             document.getElementById('tarea-titulo').value  = tarea.titulo || '';
-            document.getElementById('tarea-descripcion').value  = tarea.descripcion || '';
-            document.getElementById('tarea-fecha-de-vencimiento').value = tarea.fechaVencimiento || '';
+            document.getElementById('tarea-prioridad').value  = tarea.prioridad || '';
+            document.getElementById('tarea-horas-estimadas').value = tarea.horasEstimadas || '';
         } else {
             // MODO CREACIÓN: limpiar el campo oculto de ID
             this.elements.modalFormTitulo.textContent = 'Nueva Tarea';
@@ -120,21 +121,21 @@ export const UIService = {
                 <div class="detail-label">Título</div>
                 <div class="detail-value">${this.escapeHTML(tarea.titulo)}</div>
             </div>
-            <div class="detail-item">
-                <div class="detail-label">Descripción</div>
-                <div class="detail-value">${this.escapeHTML(tarea.descripcion || 'Sin datos.')}</div>
-            </div>
 			<div class="detail-item">
 			    <div class="detail-label">Fecha creación</div>
 			    <div class="detail-value">${this.escapeHTML(tarea.fechaCreacion || 'Sin datos.')}</div>
 			</div>
 			<div class="detail-item">
-			    <div class="detail-label">Fecha vencimiento</div>
-			    <div class="detail-value">${this.escapeHTML(tarea.fechaVencimiento || 'Sin datos.')}</div>
-			</div>
-			<div class="detail-item">
 			    <div class="detail-label">Estado</div>
 			    <div class="detail-value">${this.escapeHTML(tarea.estado || 'Sin datos.')}</div>
+			</div>
+			<div class="detail-item">
+			    <div class="detail-label">Descripción</div>
+			    <div class="detail-value">${this.escapeHTML(tarea.horasEstimadas || 'Sin datos.')}</div>
+			</div>
+			<div class="detail-item">
+			    <div class="detail-label">Descripción</div>
+			    <div class="detail-value">${this.escapeHTML(tarea.prioridad || 'Sin datos.')}</div>
 			</div>
         `;
         this.elements.modalDetalle.classList.remove('hidden');

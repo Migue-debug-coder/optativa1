@@ -121,8 +121,8 @@ async function handleGuardar() {
 
     // [ALUMNO] Leer los valores de los inputs del modal
     const titulo = document.getElementById('tarea-titulo').value.trim();
-    const descripcion = document.getElementById('tarea-descripcion').value.trim();
-    const fechaVencimiento  = document.getElementById('tarea-fecha-de-vencimiento').value;
+    const prioridad = document.getElementById('tarea-prioridad').value;
+    const horasEstimadas  = document.getElementById('tarea-horas-estimadas').value;
 
     try {
         if (id) {
@@ -133,8 +133,8 @@ async function handleGuardar() {
                 id: parseInt(id),
                 // [ALUMNO] añadir campos editables:
                 titulo: titulo,
-                descripcion: descripcion,
-                fechaVencimiento: fechaVencimiento,
+            	prioridad: prioridad,
+				horasEstimadas:horasEstimadas,
 				fechaCreacion: null,
 				estado: null
             };
@@ -146,8 +146,8 @@ async function handleGuardar() {
             const payloadCreate = {
                 // [ALUMNO] añadir campos:
 				titulo: titulo,
-				descripcion: descripcion,
-				fechaVencimiento: fechaVencimiento,
+				prioridad: prioridad,
+				horasEstimadas:horasEstimadas,
 				fechaCreacion: null,
 				estado: null
             };

@@ -57,8 +57,9 @@
                             <th style="width: 60px;">ID</th>
                             <th>Título</th>
                             <th>Creada</th>
-                            <th>Vencimiento</th>
                             <th>Estado</th>
+                            <th>Horas-Estimadas</th>
+                            <th>Prioridad</th>
                             <th style="width: 140px; text-align: center;">Acciones</th>
                         </tr>
                     </thead>
@@ -87,7 +88,7 @@
     <div id="modal-form" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
-                <h3 id="modal-form-titulo">Nuevo Tarea</h3>
+                <h3 id="modal-form-titulo">Nueva Tarea</h3>
                 <button id="btn-cerrar-form" class="btn-icon-close">&times;</button>
             </div>
             <form id="form-entidad">
@@ -105,36 +106,23 @@
                     </div>
 
                     <!-- TEXTO LARGO -->
-                    <div class="form-group">
-                        <label for="tarea-descripcion">Descripción</label>
-                        <textarea id="tarea-descripcion" rows="3" placeholder="Ingrese descripción..."></textarea>
-                    </div>
-
                     <div class="form-row">
-
-                        <!-- FECHA -->
+                      
                         <div class="form-group">
-                            <label for="tarea-fecha-de-vencimiento">Fecha de Vencimiento<span class="req">*</span></label>
-                            <input type="date" id="tarea-fecha-de-vencimiento" required>
-                        </div>
-
-                        <!-- SELECT / ENUM -->
-                        <!-- <div class="form-group">
-                            <label for="campo-select">Estado (Enum)</label>
-                            <select id="campo-select">
-                                <option value="OPCION_1">OPCION_1</option>
-                                <option value="OPCION_2">OPCION_2</option>
-                                <option value="OPCION_3">OPCION_3</option>
+                            <label for="tarea-prioridad">Prioridad</label>
+                            <select id="tarea-prioridad">
+                                <option value="BAJA">BAJA</option>
+                                <option value="MEDIA">MEDIA</option>
+                                <option value="ALTA">ALTA</option>
                             </select>
                         </div> --> 
 
                     </div>
 
-                    <!-- NUMÉRICO (descomenta si lo necesitas) -->
-                    <!--
+                    
                     <div class="form-group">
-                        <label for="campo-numero">Número</label>
-                        <input type="number" id="campo-numero" step="0.01" min="0">
+                        <label for="tarea-horas-estimadas">Horas Estimadas</label>
+                        <input type="number" id="tarea-horas-estimadas" step="0.01" min="0">
                     </div>
                     -->
 

@@ -75,7 +75,7 @@ public class TareaController {
 		}
 	}
 	
-	@GetMapping("/{idTarea}/iniciar")
+	@PutMapping("/{idTarea}/iniciar")
 	public ResponseEntity<?> iniciar(@PathVariable long idTarea){
 		try {
 			return ResponseEntity.ok(this.tareaService.iniciar(idTarea));
@@ -87,7 +87,19 @@ public class TareaController {
 		}
 	}
 	
-	@GetMapping("/{idTarea}/completar")
+	@PutMapping("/{idTarea}/revisar")
+	public ResponseEntity<?> revisar(@PathVariable long idTarea){
+		try {
+			return ResponseEntity.ok(this.tareaService.revisar(idTarea));
+		}
+		catch(TareaNotFoundException ae) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ae.getMessage());
+		}catch(TareaException te) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(te.getMessage());
+		}
+	}
+	
+	@PutMapping("/{idTarea}/completar")
 	public ResponseEntity<?> completar(@PathVariable long idTarea){
 		try {
 			return ResponseEntity.ok(this.tareaService.completar(idTarea));
@@ -110,19 +122,14 @@ public class TareaController {
 		return ResponseEntity.ok(this.tareaService.findByEnProgreso());
 	}
 	
+	@GetMapping("/en_revision")
+	public ResponseEntity<?> findByEnRevision(){
+		return ResponseEntity.ok(this.tareaService.findByEnRevision());
+	}
+	
 	@GetMapping("/completadas")
 	public ResponseEntity<?> findByCompletadas(){
 		return ResponseEntity.ok(this.tareaService.findByCompletadas());
-	}
-	
-	@GetMapping("/vencidas")
-	public ResponseEntity<List<TareaEntity>> vencidas(){
-		return ResponseEntity.ok(this.tareaService.findVencidas());
-	}
-	
-	@GetMapping("/no_vencidas")
-	public ResponseEntity<List<TareaEntity>> noVencidas(){
-		return ResponseEntity.ok(this.tareaService.findNoVencidas());
 	}
 	
 	@GetMapping("/titulo")
